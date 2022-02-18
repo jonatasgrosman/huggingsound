@@ -50,8 +50,20 @@ transcriptions = model.transcribe(audio_paths, batch_size=batch_size)
 # as you can see, not only the transcription is returned but also the timestamps 
 # and probabilities of each character of the transcription.
 
+```
 
-# You can also provide a language model for inference boosting if you want to.
+### Inference (boosted by a language model)
+
+```python
+import torch
+from huggingsound.recognition import Model, PyCTCLMDecoder
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+batch_size = 1
+model = Model("jonatasgrosman/wav2vec2-large-xlsr-53-english", device=device)
+
+audio_paths = ["/path/to/sagan.mp3", "/path/to/asimov.wav"]
+
 # We implemented 3 different decoders for that: PyCTCLMDecoder, ParlanceLMDecoder, and FlashlightLMDecoder
 # Each decoder can have different performances and depends on different libraries (You'll need to install them manually first).
 # We'll use the PyCTCLMDecoder (so "pip install pyctcdecode" first) in the following example, 
@@ -60,6 +72,7 @@ transcriptions = model.transcribe(audio_paths, batch_size=batch_size)
 # The LM format used by the LM decoders is the KenLM format (arpa or binary file).
 # You can download some LM files examples from here: 
 # https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-english/tree/main/language_model
+
 lm_path = "path/to/your/lm_files/lm.binary"
 unigrams_path = "path/to/your/lm_files/unigrams.txt"
 
