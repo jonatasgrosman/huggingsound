@@ -28,7 +28,7 @@ For now, you can open an issue if you have some questions or look at the source 
 
 ```python
 import torch
-from huggingsound.recognition import Model, PyCTCLMDecoder
+from huggingsound.recognition import Model
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 batch_size = 1
@@ -84,7 +84,7 @@ transcriptions = model.transcribe(audio_paths, batch_size=batch_size, decoder=lm
 ### Evaluation
 ```python
 import torch
-from huggingsound.recognition import Model, PyCTCLMDecoder
+from huggingsound.recognition import Model
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 batch_size = 1
