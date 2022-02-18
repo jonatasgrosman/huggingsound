@@ -47,7 +47,7 @@ transcriptions = model.transcribe(audio_paths, batch_size=batch_size)
 # },
 # ...]
 #
-# as you can see, not only the transcription is returned but also the timestamps 
+# as you can see, not only the transcription is returned but also the timestamps (in milliseconds) 
 # and probabilities of each character of the transcription.
 
 ```
