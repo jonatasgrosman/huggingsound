@@ -106,7 +106,6 @@ from huggingsound.trainer import TrainingArguments, ModelArguments
 from huggingsound.recognition import Model, DefaultTextNormalizer, TokenSet
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-batch_size = 1
 model = Model("facebook/wav2vec2-large-xlsr-53", device=device)
 output_dir = "my/finetuned/model/output/dir"
 
@@ -114,7 +113,7 @@ output_dir = "my/finetuned/model/output/dir"
 tokens = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
 token_set = TokenSet(tokens)
 
-# the two lines below will load the training and model arguments objects with their default values, 
+# the lines below will load the training and model arguments objects with their default values, 
 # you can change them if you want to, see the source code for the available arguments
 training_args = TrainingArguments() 
 model_args = ModelArguments() 
