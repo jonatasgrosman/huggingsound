@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode
+.idea
+
+# ignorable folder/files pattern
+_ignore*

@@ -1,0 +1,1 @@
+from huggingsound.trainer import TrainingArguments, ModelArguments
