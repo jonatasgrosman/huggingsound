@@ -111,7 +111,7 @@ class TrainingArguments:
     dataloader_num_workers: Optional[int] = 0
         Number of subprocesses to use for data loading (PyTorch only). 0 means that the data will be loaded in the main process.
     
-    learning_rate: Optional[float] = 5e-5
+    learning_rate: Optional[float] = 3e-4
         The learning rate for AdamW optimizer.
     
     min_learning_rate: Optional[float] = 0.0
@@ -225,7 +225,7 @@ class TrainingArguments:
     overwrite_output_dir: bool = field(default=False)
     ignore_pretrained_weights: bool = field(default=False)
     dataloader_num_workers: int = field(default=0)
-    learning_rate: float = field(default=5e-5)
+    learning_rate: float = field(default=3e-4)
     min_learning_rate: float = field(default=0.0)
     weight_decay: float = field(default=0.0)
     adam_beta1: float = field(default=0.9)

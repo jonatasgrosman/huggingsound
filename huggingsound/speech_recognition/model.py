@@ -7,18 +7,18 @@ import logging
 from typing import Optional, Callable
 from datasets import load_from_disk, Dataset
 from tqdm import tqdm
-from huggingsound.utils import get_chunks, get_waveforms, get_dataset_from_dict_list
-from huggingsound.recognition.normalizer import DefaultTextNormalizer
-from huggingsound.trainer import TrainingArguments, ModelArguments, finetune_ctc
-from huggingsound.recognition.decoder import Decoder, GreedyDecoder
-from huggingsound.metrics import cer, wer
-from huggingsound.recognition.token_set import TokenSet
 from transformers import (
     Wav2Vec2Processor, 
     AutoConfig,
     AutoModelForCTC
 )
 from transformers.models.auto.modeling_auto import MODEL_FOR_CTC_MAPPING_NAMES
+from huggingsound.utils import get_chunks, get_waveforms, get_dataset_from_dict_list
+from huggingsound.token_set import TokenSet
+from huggingsound.normalizer import DefaultTextNormalizer
+from huggingsound.trainer import TrainingArguments, ModelArguments, finetune_ctc
+from huggingsound.speech_recognition.decoder import Decoder, GreedyDecoder
+from huggingsound.metrics import cer, wer
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ logging.basicConfig(
 )
 logger.setLevel(logging.INFO)
 
-class Model():
+class SpeechRecognitionModel():
     """
     Speech Recognition Model.
 
@@ -189,15 +189,15 @@ class Model():
 
         if predictions is None:
             paths = [x["path"] for x in references]
-            predictions = [x["transcription"] for x in self.transcribe(paths, inference_batch_size, decoder)]
+            predictions = self.transcribe(paths, inference_batch_size, decoder)
         
         evaluation = {}
-        reference_predictions = [text_normalizer(x["transcription"]) for x in references]
-        decoder_predictions = [text_normalizer(x["transcription"]) for x in predictions]
+        reference_transcriptions = [text_normalizer(x["transcription"]) for x in references]
+        predicted_transcriptions = [text_normalizer(x["transcription"]) for x in predictions]
 
         evaluation = {
-            "cer": cer(predictions=decoder_predictions, references=reference_predictions, chunk_size=metrics_batch_size),
-            "wer": wer(predictions=decoder_predictions, references=reference_predictions, chunk_size=metrics_batch_size)
+            "cer": cer(predictions=predicted_transcriptions, references=reference_transcriptions, chunk_size=metrics_batch_size),
+            "wer": wer(predictions=predicted_transcriptions, references=reference_transcriptions, chunk_size=metrics_batch_size)
         }
 
         return evaluation

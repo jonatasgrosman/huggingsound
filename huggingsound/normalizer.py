@@ -1,6 +1,6 @@
 from __future__ import annotations
 import re
-from huggingsound.recognition.token_set import TokenSet
+from huggingsound.token_set import TokenSet
 
 
 class DefaultTextNormalizer():

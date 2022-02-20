@@ -53,23 +53,23 @@ class TokenSet():
         
         if blank_token not in tokens:
             logging.warning(f"blank_token {blank_token} not in provided tokens. It will be added to the list of tokens")
-            tokens.append(blank_token)
+            self.tokens.append(blank_token)
 
         if silence_token not in tokens:
             logging.warning(f"silence_token {silence_token} not in provided tokens. It will be added to the list of tokens")
-            tokens.append(silence_token)
+            self.tokens.append(silence_token)
         
         if unk_token not in tokens:
             logging.warning(f"unk_token {unk_token} not in provided tokens. It will be added to the list of tokens")
-            tokens.append(unk_token)
+            self.tokens.append(unk_token)
 
         if bos_token not in tokens:
             logging.warning(f"bos_token {bos_token} not in provided tokens. It will be added to the list of tokens")
-            tokens.append(bos_token)
+            self.tokens.append(bos_token)
         
         if eos_token not in tokens:
             logging.warning(f"eos_token {eos_token} not in provided tokens. It will be added to the list of tokens")
-            tokens.append(eos_token)
+            self.tokens.append(eos_token)
 
         self.id_by_token = {token: i for i, token in enumerate(self.tokens)}
 

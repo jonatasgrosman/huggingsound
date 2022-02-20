@@ -4,7 +4,7 @@ import torch
 import logging
 from multiprocessing import Pool
 import numpy as np
-from huggingsound.recognition.token_set import TokenSet
+from huggingsound.token_set import TokenSet
 
 class Decoder():
     """
@@ -587,7 +587,7 @@ class FlashlightLMDecoder(Decoder):
         return predictions
 
 
-class PyCTCLMDecoder(Decoder):
+class KenshoLMDecoder(Decoder):
     """
     Kensho-technologies' pyctcdecode Language Model decoder
 

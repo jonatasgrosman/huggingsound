@@ -21,21 +21,23 @@ $ pip install huggingsound
 I'll try to summarize the usage of this toolkit. 
 But many things will be missing from the documentation below. I promise to make it better soon.
 For now, you can open an issue if you have some questions or look at the source code to see how it works.
+You can check more usage examples in the repository `examples` folder.
 
-## For speech-recognition
+## Speech recognition
+
+For speech recognition you can use any CTC model hosted on the Hugging Face Hub. You can find some available models [here](https://huggingface.co/models?pipeline_tag=automatic-speech-recognition).
 
 ### Inference
 
 ```python
-import torch
-from huggingsound.recognition import Model
+from huggingsound import SpeechRecognitionModel
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-batch_size = 1
-model = Model("jonatasgrosman/wav2vec2-large-xlsr-53-english", device=device)
-
+model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
 audio_paths = ["/path/to/sagan.mp3", "/path/to/asimov.wav"]
-transcriptions = model.transcribe(audio_paths, batch_size=batch_size)
+
+transcriptions = model.transcribe(audio_paths)
+
+print(transcriptions)
 
 # transcriptions format (a list of dicts, one for each audio file):
 # [
@@ -55,68 +57,55 @@ transcriptions = model.transcribe(audio_paths, batch_size=batch_size)
 ### Inference (boosted by a language model)
 
 ```python
-import torch
-from huggingsound.recognition import Model, PyCTCLMDecoder
+from huggingsound import SpeechRecognitionModel, KenshoLMDecoder
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-batch_size = 1
-model = Model("jonatasgrosman/wav2vec2-large-xlsr-53-english", device=device)
-
+model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
 audio_paths = ["/path/to/sagan.mp3", "/path/to/asimov.wav"]
 
-# We implemented 3 different decoders for that: PyCTCLMDecoder, ParlanceLMDecoder, and FlashlightLMDecoder
-# Each decoder can have different performances and depends on different libraries (You'll need to install them manually first).
-# We'll use the PyCTCLMDecoder (so "pip install pyctcdecode" first) in the following example, 
-# but you can use any of the 3 decoders...
-
 # The LM format used by the LM decoders is the KenLM format (arpa or binary file).
-# You can download some LM files examples from here: 
-# https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-english/tree/main/language_model
-
+# You can download some LM files examples from here: https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-english/tree/main/language_model
 lm_path = "path/to/your/lm_files/lm.binary"
 unigrams_path = "path/to/your/lm_files/unigrams.txt"
 
-lm_decoder = PyCTCLMDecoder(model.token_set, lm_path=lm_path, unigrams_path=unigrams_path)
-transcriptions = model.transcribe(audio_paths, batch_size=batch_size, decoder=lm_decoder)
+# We implemented three different decoders for LM boosted decoding: KenshoLMDecoder, ParlanceLMDecoder, and FlashlightLMDecoder
+# On this example, we'll use the KenshoLMDecoder
+# To use this decoder you'll need to install the Kensho's ctcdecode first (https://github.com/kensho-technologies/pyctcdecode)
+decoder = KenshoLMDecoder(model.token_set, lm_path=lm_path, unigrams_path=unigrams_path)
+
+transcriptions = model.transcribe(audio_paths, decoder=decoder)
+
+print(transcriptions)
 
 ```
 
 ### Evaluation
 ```python
-import torch
-from huggingsound.recognition import Model
+from huggingsound import SpeechRecognitionModel
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-batch_size = 1
-model = Model("jonatasgrosman/wav2vec2-large-xlsr-53-english", device=device)
+model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
 
-reference_transcriptions = [
+references = [
     {"path": "/path/to/sagan.mp3", "transcription": "extraordinary claims require extraordinary evidence"},
     {"path": "/path/to/asimov.wav", "transcription": "violence is the last refuge of the incompetent"},
 ]
 
-evaluation = model.evaluate(reference_transcriptions, inference_batch_size=batch_size)
+evaluation = model.evaluate(references)
+
+print(evaluation)
+
 # evaluation format: {"wer": 0.08, "cer": 0.02}
 ```
 
 ### Fine-tuning
 ```python
-import torch
-from huggingsound.trainer import TrainingArguments, ModelArguments
-from huggingsound.recognition import Model, DefaultTextNormalizer, TokenSet
+from huggingsound import TrainingArguments, ModelArguments, SpeechRecognitionModel, TokenSet
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model = Model("facebook/wav2vec2-large-xlsr-53", device=device)
+model = SpeechRecognitionModel("facebook/wav2vec2-large-xlsr-53")
 output_dir = "my/finetuned/model/output/dir"
 
 # first of all, you need to define your model's token set
 tokens = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
 token_set = TokenSet(tokens)
-
-# the lines below will load the training and model arguments objects with their default values, 
-# you can change them if you want to, see the source code for the available arguments
-training_args = TrainingArguments() 
-model_args = ModelArguments() 
 
 # define your train/eval data
 train_data = [
@@ -132,11 +121,10 @@ eval_data = [
 model.finetune(
     output_dir, 
     train_data=train_data, 
-    eval_data=eval_data,
+    eval_data=eval_data, # the eval_data is optional
     token_set=token_set, 
-    training_args=training_args,
-    model_args=model_args,
 )
+
 ```
 
 # Troubleshooting
