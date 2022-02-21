@@ -9,10 +9,8 @@ from datasets import load_from_disk, Dataset
 from tqdm import tqdm
 from transformers import (
     Wav2Vec2Processor, 
-    AutoConfig,
     AutoModelForCTC
 )
-from transformers.models.auto.modeling_auto import MODEL_FOR_CTC_MAPPING_NAMES
 from huggingsound.utils import get_chunks, get_waveforms, get_dataset_from_dict_list
 from huggingsound.token_set import TokenSet
 from huggingsound.normalizer import DefaultTextNormalizer
@@ -41,41 +39,32 @@ class SpeechRecognitionModel():
     device: Optional[str] = "cpu"
         Device to use for inference/evaluation/training, default is "cpu". If you want to use a GPU for that, 
         you'll probably need to specify the device as "cuda"
-        
-    letter_case: Optional[str] = "lowercase"
-        Letter case to use for the transcription, can be "lowercase", "uppercase" or None. 
-        If None, the transcription will be in the same case as the model's output.
     """
 
-    def __init__(self, model_path: str, device: Optional[str] = "cpu", letter_case: Optional[str] = "lowercase"):
+    def __init__(self, model_path: str, device: Optional[str] = "cpu"):
         
         self.model_path = model_path
         self.device = device
-        self.letter_case = letter_case # TODO: may this be useful?
         
         logger.info("Loading model...")
         self._load_model()
 
+    @property
+    def is_finetuned(self):
+        return self.processor is not None
+
     def _load_model(self):
 
-        self.model_config = AutoConfig.from_pretrained(self.model_path)
+        self.model = AutoModelForCTC.from_pretrained(self.model_path)
+        self.model.to(self.device)
 
-        ctc_finetuded_architectures = set(MODEL_FOR_CTC_MAPPING_NAMES.values())
-
-        self.is_finetuned = len(ctc_finetuded_architectures.intersection(self.model_config.architectures)) > 0
-
-        if not self.is_finetuned:
-
-            logger.warning("Not fine-tuned model! You'll need to fine-tune it before use this model for audio transcription")
-
-        else:
-
+        try:
             self.processor = Wav2Vec2Processor.from_pretrained(self.model_path)
-            self.model = AutoModelForCTC.from_pretrained(self.model_path)
-            self.model.to(self.device)
-
             self.token_set = TokenSet.from_processor(self.processor)
-
+        except Exception:
+            logger.warning("Not fine-tuned model! You'll need to fine-tune it before use this model for audio transcription")
+            self.processor = None
+            self.token_set = None
 
     def transcribe(self, paths: list[str], batch_size: Optional[int] = 1, decoder: Optional[Decoder] = None) -> list[dict]:
         """ 
