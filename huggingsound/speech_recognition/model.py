@@ -110,7 +110,10 @@ class SpeechRecognitionModel():
             inputs = self.processor(waveforms, sampling_rate=sampling_rate, return_tensors="pt", padding=True, do_normalize=True)
 
             with torch.no_grad():
-                logits = self.model(inputs.input_values.to(self.device), attention_mask=inputs.attention_mask.to(self.device)).logits
+                if hasattr(inputs, "attention_mask"):
+                    logits = self.model(inputs.input_values.to(self.device),attention_mask=inputs.attention_mask.to(self.device)).logits
+                else:
+                    logits = self.model(inputs.input_values.to(self.device)).logits
 
             result += decoder(logits)
 
