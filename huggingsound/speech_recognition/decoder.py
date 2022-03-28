@@ -674,7 +674,8 @@ class KenshoLMDecoder(Decoder):
             from pyctcdecode import build_ctcdecoder
         except ImportError:
             raise ImportError("To use this decoder please install the pyctcdecode from https://github.com/kensho-technologies/pyctcdecode")
-
+        
+        self.unigrams = None
         if self.unigrams_path is not None:
             self.unigrams = []
             with open(self.unigrams_path, "r") as f:
