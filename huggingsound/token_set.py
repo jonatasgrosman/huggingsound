@@ -31,7 +31,8 @@ class TokenSet():
         EOS token
 
     letter_case: str
-        Case mode to be applied to the transcription, can be 'lowercase', 'uppercase' or None (None == keep the original letter case). Default is None.
+        Case mode to be applied to the transcription, can be 'lowercase', 'uppercase' 
+        or None (None == keep the original letter case). Default is lowercase.
 
     """
     
@@ -72,6 +73,7 @@ class TokenSet():
             self.tokens.append(eos_token)
 
         self.id_by_token = {token: i for i, token in enumerate(self.tokens)}
+        self.token_by_id = {i: token for i, token in enumerate(self.tokens)}
 
     @property
     def blank_token_id(self):

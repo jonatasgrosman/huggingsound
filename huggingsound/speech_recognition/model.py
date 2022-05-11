@@ -39,12 +39,17 @@ class SpeechRecognitionModel():
     device: Optional[str] = "cpu"
         Device to use for inference/evaluation/training, default is "cpu". If you want to use a GPU for that, 
         you'll probably need to specify the device as "cuda"
+
+    letter_case: Optional[str] = None
+        Case mode to be applied to the model's transcriptions. Can be 'lowercase', 'uppercase' 
+        or None (None == keep the original letter case). Default is None.
     """
 
-    def __init__(self, model_path: str, device: Optional[str] = "cpu"):
+    def __init__(self, model_path: str, device: Optional[str] = "cpu", letter_case: Optional[str] = None):
         
         self.model_path = model_path
         self.device = device
+        self.letter_case = letter_case
         
         logger.info("Loading model...")
         self._load_model()
@@ -60,7 +65,13 @@ class SpeechRecognitionModel():
 
         try:
             self.processor = Wav2Vec2Processor.from_pretrained(self.model_path)
-            self.token_set = TokenSet.from_processor(self.processor)
+            self.token_set = TokenSet.from_processor(self.processor, letter_case=self.letter_case)
+
+            # changing the processor's tokens maps to match the token set
+            # this is necessary to prevent letter case issues on fine-tuning
+            self.processor.tokenizer.encoder = self.token_set.id_by_token
+            self.processor.tokenizer.decoder = self.token_set.token_by_id
+
         except Exception:
             logger.warning("Not fine-tuned model! You'll need to fine-tune it before use this model for audio transcription")
             self.processor = None
