@@ -27,7 +27,7 @@ jiwer = "^2.3.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pytest-cov = "^2.10.1"
-pytest-randomly = "^3.4.1"
+pytest-randomly = "^3.12.0"
 coverage = {version = "^5.2.1", extras = ["toml"]}
 
 [build-system]
