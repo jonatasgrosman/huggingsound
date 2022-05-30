@@ -195,8 +195,23 @@ class SpeechRecognitionModel():
             predictions = self.transcribe(paths, inference_batch_size, decoder)
         
         evaluation = {}
-        reference_transcriptions = [text_normalizer(x["transcription"]) for x in references]
-        predicted_transcriptions = [text_normalizer(x["transcription"]) for x in predictions]
+        reference_transcriptions = []
+        predicted_transcriptions = []
+        skipped_references_count = 0
+        
+        for i in range(len(references)):
+
+            reference_text = text_normalizer(references[i]["transcription"])
+            predicted_text = text_normalizer(predictions[i]["transcription"])
+
+            if len(reference_text) > 0:
+                reference_transcriptions.append(reference_text)
+                predicted_transcriptions.append(predicted_text)
+            else:
+                skipped_references_count += 1
+
+        if skipped_references_count > 0:
+            logger.warning(f"{skipped_references_count} references skipped because they were empty after text normalization")
 
         evaluation = {
             "cer": cer(predictions=predicted_transcriptions, references=reference_transcriptions, chunk_size=metrics_batch_size),
