@@ -151,10 +151,8 @@ If you want to cite the tool you can use this:
 
 ```bibtex
 @misc{grosman2022huggingsound,
-  title={HuggingSound},
+  title={Hugging{S}ound},
   author={Grosman, Jonatas},
-  publisher={GitHub},
-  journal={GitHub repository},
   howpublished={\url{https://github.com/jonatasgrosman/huggingsound}},
   year={2022}
 }
