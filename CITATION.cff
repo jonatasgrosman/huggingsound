@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: Grosman
+  given-names: Jonatas
+title: "HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools"
+date-released: 2022
+url: "https://github.com/jonatasgrosman/huggingsound"
+preferred-citation:
+  type: generic
+  authors:
+  - family-names: Grosman
+    given-names: Jonatas
+  title: "HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools"
+  year: 2022
+  medium: https://github.com/jonatasgrosman/huggingsound
