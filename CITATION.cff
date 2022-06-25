@@ -11,6 +11,6 @@ preferred-citation:
   authors:
   - family-names: Grosman
     given-names: Jonatas
-  title: "HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools"
+  title: "HuggingSound: A toolkit for speech-related tasks based on Hugging Face's tools"
   year: 2022
   url: "https://github.com/jonatasgrosman/huggingsound"
