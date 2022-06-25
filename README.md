@@ -151,7 +151,7 @@ If you want to cite the tool you can use this:
 
 ```bibtex
 @misc{grosman2022huggingsound,
-  title={{HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools}},
+  title={{HuggingSound: A toolkit for speech-related tasks based on Hugging Face's tools}},
   author={Grosman, Jonatas},
   howpublished={\url{https://github.com/jonatasgrosman/huggingsound}},
   year={2022}
