@@ -154,7 +154,7 @@ toml = ["toml"]
 
 [[package]]
 name = "datasets"
-version = "1.18.3"
+version = "2.4.0"
 description = "HuggingFace community-driven open-source library of datasets"
 category = "main"
 optional = false
@@ -162,32 +162,33 @@ python-versions = "*"
 
 [package.dependencies]
 aiohttp = "*"
-dill = "*"
-fsspec = {version = ">=2021.05.0", extras = ["http"]}
+dill = "<0.3.6"
+fsspec = {version = ">=2021.11.1", extras = ["http"]}
 huggingface-hub = ">=0.1.0,<1.0.0"
 importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 multiprocess = "*"
 numpy = ">=1.17"
 packaging = "*"
 pandas = "*"
-pyarrow = ">=3.0.0,<4.0.0 || >4.0.0"
+pyarrow = ">=6.0.0"
 requests = ">=2.19.0"
+responses = "<0.19"
 tqdm = ">=4.62.1"
 xxhash = "*"
 
 [package.extras]
-apache-beam = ["apache-beam (>=2.26.0)"]
-audio = ["librosa"]
-benchmarks = ["numpy (==1.18.5)", "tensorflow (==2.3.0)", "torch (==1.6.0)", "transformers (==3.0.2)"]
-dev = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "black (==21.4b0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)", "importlib-resources"]
-docs = ["docutils (==0.16.0)", "recommonmark", "sphinx (==3.1.2)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinxext-opengraph (==0.4.1)", "sphinx-copybutton", "fsspec (<2021.9.0)", "s3fs", "sphinx-panels", "sphinx-inline-tabs", "myst-parser", "Markdown (!=3.3.5)"]
-quality = ["black (==21.4b0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)"]
-s3 = ["fsspec", "boto3", "botocore", "s3fs"]
-tensorflow = ["tensorflow (>=2.2.0,!=2.6.0,!=2.6.1)"]
-tensorflow_gpu = ["tensorflow-gpu (>=2.2.0,!=2.6.0,!=2.6.1)"]
-tests = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "soundfile", "transformers", "bs4", "conllu", "h5py", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "torchmetrics (==0.6.0)", "mauve-text", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "Pillow (>=6.2.1)", "librosa", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "importlib-resources"]
-torch = ["torch"]
 vision = ["Pillow (>=6.2.1)"]
+torch = ["torch"]
+tests = ["importlib-resources", "librosa", "Pillow (>=6.2.1)", "six (>=1.15.0,<1.16.0)", "Werkzeug (>=1.0.1)", "texttable (>=1.6.3)", "tldextract (>=3.1.0)", "requests-file (>=1.5.1)", "toml (>=0.10.1)", "seqeval", "scipy", "scikit-learn", "sacrebleu", "rouge-score (<0.0.7)", "mauve-text", "jiwer", "bert-score (>=0.3.6)", "sacremoses", "sentencepiece", "zstandard", "tldextract", "py7zr", "openpyxl", "nltk", "mwparserfromhell", "lz4", "lxml", "langdetect", "h5py", "conllu", "bs4", "transformers", "soundfile", "torchaudio", "torch", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "s3fs (>=2021.11.1)", "rarfile (>=4.0)", "moto[s3,server] (==2.0.4)", "fsspec", "faiss-cpu (>=1.6.4)", "botocore (>=1.22.8)", "boto3 (>=1.19.8)", "aiobotocore (>=2.0.1)", "elasticsearch (<8.0.0)", "apache-beam (>=2.26.0)", "pytest-xdist", "pytest-datadir", "pytest", "absl-py"]
+tensorflow_gpu = ["tensorflow-gpu (>=2.2.0,!=2.6.0,!=2.6.1)"]
+tensorflow = ["tensorflow (>=2.2.0,!=2.6.0,!=2.6.1)"]
+s3 = ["s3fs", "botocore", "boto3", "fsspec"]
+quality = ["pyyaml (>=5.3.1)", "isort (>=5.0.0)", "flake8 (>=3.8.3)", "black (>=22.0,<23.0)"]
+docs = ["s3fs"]
+dev = ["importlib-resources", "pyyaml (>=5.3.1)", "isort (>=5.0.0)", "flake8 (>=3.8.3)", "black (>=22.0,<23.0)", "librosa", "Pillow (>=6.2.1)", "six (>=1.15.0,<1.16.0)", "Werkzeug (>=1.0.1)", "texttable (>=1.6.3)", "tldextract (>=3.1.0)", "requests-file (>=1.5.1)", "toml (>=0.10.1)", "seqeval", "scipy", "scikit-learn", "sacrebleu", "rouge-score (<0.0.7)", "mauve-text", "jiwer", "bert-score (>=0.3.6)", "sacremoses", "sentencepiece", "zstandard", "tldextract", "py7zr", "openpyxl", "nltk", "mwparserfromhell", "lz4", "lxml", "langdetect", "h5py", "conllu", "bs4", "transformers", "soundfile", "torchaudio", "torch", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "s3fs (>=2021.11.1)", "rarfile (>=4.0)", "moto[s3,server] (==2.0.4)", "fsspec", "faiss-cpu (>=1.6.4)", "botocore (>=1.22.8)", "boto3 (>=1.19.8)", "aiobotocore (>=2.0.1)", "elasticsearch (<8.0.0)", "apache-beam (>=2.26.0)", "pytest-xdist", "pytest-datadir", "pytest", "absl-py"]
+benchmarks = ["transformers (==3.0.2)", "torch (==1.6.0)", "tensorflow (==2.3.0)", "numpy (==1.18.5)"]
+audio = ["librosa"]
+apache-beam = ["apache-beam (>=2.26.0)"]
 
 [[package]]
 name = "decorator"
@@ -230,11 +231,11 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "fsspec"
-version = "2022.1.0"
+version = "2022.7.1"
 description = "File-system specification"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 aiohttp = {version = "*", optional = true, markers = "extra == \"http\""}
@@ -261,6 +262,7 @@ s3 = ["s3fs"]
 sftp = ["paramiko"]
 smb = ["smbprotocol"]
 ssh = ["paramiko"]
+tqdm = ["tqdm"]
 
 [[package]]
 name = "huggingface-hub"
@@ -280,12 +282,12 @@ tqdm = "*"
 typing-extensions = ">=3.7.4.3"
 
 [package.extras]
-tensorflow = ["tensorflow"]
-testing = ["pytest", "datasets"]
 torch = ["torch"]
-all = ["pytest", "datasets", "black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
-dev = ["pytest", "datasets", "black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
-quality = ["black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
+testing = ["datasets", "pytest"]
+tensorflow = ["tensorflow"]
+quality = ["flake8 (>=3.8.3)", "isort (>=5.5.4)", "black (>=20.8b1)"]
+dev = ["flake8 (>=3.8.3)", "isort (>=5.5.4)", "black (>=20.8b1)", "datasets", "pytest"]
+all = ["flake8 (>=3.8.3)", "isort (>=5.5.4)", "black (>=20.8b1)", "datasets", "pytest"]
 
 [[package]]
 name = "idna"
@@ -353,9 +355,9 @@ scipy = ">=1.0.0"
 soundfile = ">=0.10.2"
 
 [package.extras]
+tests = ["soxr", "samplerate", "contextlib2", "pytest", "pytest-cov", "pytest-mpl", "matplotlib (>=3.0)"]
+docs = ["presets", "spinxcontrib-svg2pdfconverter", "sphinx-gallery (>=0.7)", "sphinx-multiversion (>=0.2.3)", "matplotlib (>=2.0.0,<3.3)", "numba (<0.50)", "sphinx-rtd-theme (>=0.5.0,<0.6.0)", "sphinx (!=1.3.1)", "numpydoc"]
 display = ["matplotlib (>=1.5)"]
-docs = ["numpydoc", "sphinx (!=1.3.1)", "sphinx-rtd-theme (>=0.5.0,<0.6.0)", "numba (<0.50)", "matplotlib (>=2.0.0,<3.3)", "sphinx-multiversion (>=0.2.3)", "sphinx-gallery (>=0.7)", "spinxcontrib-svg2pdfconverter", "presets"]
-tests = ["matplotlib (>=3.0)", "pytest-mpl", "pytest-cov", "pytest", "contextlib2", "samplerate", "soxr"]
 
 [[package]]
 name = "llvmlite"
@@ -467,9 +469,9 @@ packaging = ">=20.0"
 requests = ">=2.19.0"
 
 [package.extras]
-progress = ["tqdm (>=4.41.0,<5.0.0)"]
-sftp = ["paramiko (>=2.7.0)"]
 xxhash = ["xxhash (>=1.4.3)"]
+sftp = ["paramiko (>=2.7.0)"]
+progress = ["tqdm (>=4.41.0,<5.0.0)"]
 
 [[package]]
 name = "py"
@@ -640,6 +642,21 @@ docs = ["sphinx (!=1.3.1)", "numpydoc"]
 tests = ["pytest (<4)", "pytest-cov"]
 
 [[package]]
+name = "responses"
+version = "0.18.0"
+description = "A utility library for mocking out the `requests` Python library."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+requests = ">=2.0,<3.0"
+urllib3 = ">=1.25.10"
+
+[package.extras]
+tests = ["pytest (>=4.6)", "coverage (>=6.0.0)", "pytest-cov", "pytest-localserver", "flake8", "types-mock", "types-requests", "mypy"]
+
+[[package]]
 name = "sacremoses"
 version = "0.0.47"
 description = "SacreMoses"
@@ -669,10 +686,10 @@ scipy = ">=1.1.0"
 threadpoolctl = ">=2.0.0"
 
 [package.extras]
-benchmark = ["matplotlib (>=2.2.3)", "pandas (>=0.25.0)", "memory-profiler (>=0.57.0)"]
-docs = ["matplotlib (>=2.2.3)", "scikit-image (>=0.14.5)", "pandas (>=0.25.0)", "seaborn (>=0.9.0)", "memory-profiler (>=0.57.0)", "sphinx (>=4.0.1)", "sphinx-gallery (>=0.7.0)", "numpydoc (>=1.0.0)", "Pillow (>=7.1.2)", "sphinx-prompt (>=1.3.0)", "sphinxext-opengraph (>=0.4.2)"]
-examples = ["matplotlib (>=2.2.3)", "scikit-image (>=0.14.5)", "pandas (>=0.25.0)", "seaborn (>=0.9.0)"]
-tests = ["matplotlib (>=2.2.3)", "scikit-image (>=0.14.5)", "pandas (>=0.25.0)", "pytest (>=5.0.1)", "pytest-cov (>=2.9.0)", "flake8 (>=3.8.2)", "black (>=21.6b0)", "mypy (>=0.770)", "pyamg (>=4.0.0)"]
+tests = ["pyamg (>=4.0.0)", "mypy (>=0.770)", "black (>=21.6b0)", "flake8 (>=3.8.2)", "pytest-cov (>=2.9.0)", "pytest (>=5.0.1)", "pandas (>=0.25.0)", "scikit-image (>=0.14.5)", "matplotlib (>=2.2.3)"]
+examples = ["seaborn (>=0.9.0)", "pandas (>=0.25.0)", "scikit-image (>=0.14.5)", "matplotlib (>=2.2.3)"]
+docs = ["sphinxext-opengraph (>=0.4.2)", "sphinx-prompt (>=1.3.0)", "Pillow (>=7.1.2)", "numpydoc (>=1.0.0)", "sphinx-gallery (>=0.7.0)", "sphinx (>=4.0.1)", "memory-profiler (>=0.57.0)", "seaborn (>=0.9.0)", "pandas (>=0.25.0)", "scikit-image (>=0.14.5)", "matplotlib (>=2.2.3)"]
+benchmark = ["memory-profiler (>=0.57.0)", "pandas (>=0.25.0)", "matplotlib (>=2.2.3)"]
 
 [[package]]
 name = "scipy"
@@ -884,7 +901,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.10"
-content-hash = "ad80cdadfbd8efbe53548ed18ca700d97f7d3af108cd98fb68fec183be33047b"
+content-hash = "77b677d1f132aba65fa70677ff1b6b9bbbffc0039132940a0cd6e265cb8da803"
 
 [metadata.files]
 aiohttp = [
@@ -1111,8 +1128,8 @@ coverage = [
     {file = "coverage-5.5.tar.gz", hash = "sha256:ebe78fe9a0e874362175b02371bdfbee64d8edc42a044253ddf4ee7d3c15212c"},
 ]
 datasets = [
-    {file = "datasets-1.18.3-py3-none-any.whl", hash = "sha256:5862670a3e213af1aa68995a32ff0ce761b9d71d2677c3fa59e7088eb5e2a841"},
-    {file = "datasets-1.18.3.tar.gz", hash = "sha256:dfdf75c255069f4ed25ccdd0d3f0730c1ff1e2b27f8d4bd1af395b10fe8ebc63"},
+    {file = "datasets-2.4.0-py3-none-any.whl", hash = "sha256:b7a188015ec683a57ac540e4c269e45b418639704ae98b1f17684abecafd6ace"},
+    {file = "datasets-2.4.0.tar.gz", hash = "sha256:21619ec08c3b48e7667884eb4172bbd71ca078c4b8449146c0f9386e84af018c"},
 ]
 decorator = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
@@ -1188,8 +1205,8 @@ frozenlist = [
     {file = "frozenlist-1.3.0.tar.gz", hash = "sha256:ce6f2ba0edb7b0c1d8976565298ad2deba6f8064d2bebb6ffce2ca896eb35b0b"},
 ]
 fsspec = [
-    {file = "fsspec-2022.1.0-py3-none-any.whl", hash = "sha256:256e2be44e62430c9ca8dac2e480384b00a3c52aef4e2b0b7204163fdc861d37"},
-    {file = "fsspec-2022.1.0.tar.gz", hash = "sha256:0bdd519bbf4d8c9a1d893a50b5ebacc89acd0e1fe0045d2f7b0e0c1af5990edc"},
+    {file = "fsspec-2022.7.1-py3-none-any.whl", hash = "sha256:36c5a8e7c4fc20cf32ef6934ac0a122accc8a593ddc8478d30c3ca4dbbd95500"},
+    {file = "fsspec-2022.7.1.tar.gz", hash = "sha256:7f9fb19d811b027b97c4636c6073eb53bc4cbee2d3c4b33fa88b9f26906fd7d7"},
 ]
 huggingface-hub = [
     {file = "huggingface_hub-0.4.0-py3-none-any.whl", hash = "sha256:808021af1ce1111104973ae54d81738eaf40be6d1e82fc6bdedb82f81c6206e7"},
@@ -1595,6 +1612,10 @@ requests = [
 ]
 resampy = [
     {file = "resampy-0.2.2.tar.gz", hash = "sha256:62af020d8a6674d8117f62320ce9470437bb1d738a5d06cd55591b69b463929e"},
+]
+responses = [
+    {file = "responses-0.18.0-py3-none-any.whl", hash = "sha256:15c63ad16de13ee8e7182d99c9334f64fd81f1ee79f90748d527c28f7ca9dd51"},
+    {file = "responses-0.18.0.tar.gz", hash = "sha256:380cad4c1c1dc942e5e8a8eaae0b4d4edf708f4f010db8b7bcfafad1fcd254ff"},
 ]
 sacremoses = [
     {file = "sacremoses-0.0.47-py2.py3-none-any.whl", hash = "sha256:7622c6e9fe12d45b7acf4528451bd054c1557c1f6779398f9cd9f28332d92a0b"},

@@ -17,7 +17,7 @@ issues = "https://github.com/jonatasgrosman/huggingsound/issues"
 [tool.poetry.dependencies]
 python = ">=3.7,<3.10"
 transformers = "^4.16.2"
-datasets = "^1.18.3"
+datasets = ">=1.18.3,<3.0.0"
 torch = "^1.9.0"
 librosa = "^0.8.1"
 numba = "^0.53.1"
