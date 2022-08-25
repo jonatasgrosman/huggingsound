@@ -431,7 +431,7 @@ class CTCTrainer(Trainer):
         model.train()
         inputs = self._prepare_inputs(inputs)
 
-        if self.use_amp:
+        if (hasattr(self, 'use_amp') and self.use_amp) or (hasattr(self, 'use_cuda_amp') and self.use_cuda_amp):
             with torch.cuda.amp.autocast():
                 loss = self.compute_loss(model, inputs)
         else:
@@ -448,7 +448,7 @@ class CTCTrainer(Trainer):
         if self.args.gradient_accumulation_steps > 1:
             loss = loss / self.args.gradient_accumulation_steps
 
-        if self.use_amp:
+        if (hasattr(self, 'use_amp') and self.use_amp) or (hasattr(self, 'use_cuda_amp') and self.use_cuda_amp):
             self.scaler.scale(loss).backward()
         elif self.deepspeed:
             self.deepspeed.backward(loss)
