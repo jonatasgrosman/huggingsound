@@ -596,7 +596,9 @@ def finetune_ctc(model_name_or_path: str, output_dir: str, processor: Wav2Vec2Pr
                          evaluation_callbacks=training_args.evaluation_callbacks):
 
         pred_logits = pred.predictions
+        padding_mask = pred_logits[:,:,0] == -100
         pred_ids = np.argmax(pred_logits, axis=-1)
+        pred_ids[padding_mask] = processor.tokenizer.pad_token_id
 
         pred.label_ids[pred.label_ids == -100] = processor.tokenizer.pad_token_id
 
