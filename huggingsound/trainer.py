@@ -292,22 +292,22 @@ class CTCDataCollatorWithPadding:
                 callback(features)
 
         input_features = [{"input_values": feature["input_values"]} for feature in features]
-        label_features = [{"input_ids": feature["labels"]} for feature in features]
+        labels = [{"input_ids": feature["labels"]} for feature in features]
 
         batch = self.processor.pad(
-            input_features,
+            input_features=input_features,
             padding=True,
             pad_to_multiple_of=self.pad_to_multiple_of,
             return_tensors="pt",
         )
-        with self.processor.as_target_processor():
-            labels_batch = self.processor.pad(
-                label_features,
-                padding=True,
-                pad_to_multiple_of=self.pad_to_multiple_of,
-                return_tensors="pt",
-            )
 
+        labels_batch = self.processor.pad(
+            labels=labels,
+            padding=True,
+            pad_to_multiple_of=self.pad_to_multiple_of,
+            return_tensors="pt",
+        )
+        
         # replace padding with -100 to ignore loss correctly
         batch["labels"] = labels_batch["input_ids"].masked_fill(labels_batch.attention_mask.ne(1), -100)
 
@@ -515,7 +515,7 @@ def finetune_ctc(model_name_or_path: str, output_dir: str, processor: Wav2Vec2Pr
         training_args_dict["evaluation_strategy"] = "steps"
         training_args_dict["greater_is_better"] = False
     
-    hftraining_args = hf_arg_parser.parse_dict(training_args_dict)[0]
+    hftraining_args = hf_arg_parser.parse_dict(training_args_dict, allow_extra_keys=True)[0]
 
     # Set seed before initializing model
     if hftraining_args.seed is not None:

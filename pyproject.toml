@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "HuggingSound"
-version = "0.1.5"
+version = "0.1.6"
 description = "HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools."
 authors = ["Jonatas Grosman <jonatasgrosman@gmail.com>"]
 maintainers = ["Jonatas Grosman <jonatasgrosman@gmail.com>"]
@@ -15,14 +15,12 @@ keywords = ["transformers", "audio", "speech", "automatic speech recognition", "
 issues = "https://github.com/jonatasgrosman/huggingsound/issues"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.10"
-transformers = "^4.16.2"
-datasets = "^1.18.3"
-torch = "^1.9.0"
-librosa = "^0.8.1"
-numba = "^0.53.1"
-llvmlite = "^0.36.0"
-jiwer = "^2.3.0"
+python = ">=3.7,<4"
+torch = ">=1.7,!=1.12.0,<1.13.0"
+transformers = "^4.23.1"
+datasets = "^2.6.1"
+librosa = "^0.9.2"
+jiwer = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

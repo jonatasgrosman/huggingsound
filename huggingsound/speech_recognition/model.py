@@ -240,8 +240,7 @@ class SpeechRecognitionModel():
             # Building labels
             ## appending a " " because the CTC loss concatenates all batches into a single vector, so we need to separate sentences by a whitespace
             transcription = text_normalizer(sample["transcription"]) + " " 
-            with processor.as_target_processor():
-                sample["labels"] = processor(transcription).input_ids
+            sample["labels"] = processor(text=transcription).input_ids
 
             # Building length
             sample[length_column_name] = len(sample["input_values"])
