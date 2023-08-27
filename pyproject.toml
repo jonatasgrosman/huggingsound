@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "HuggingSound"
-version = "0.1.6"
+version = "0.2.0"
 description = "HuggingSound: A toolkit for speech-related tasks based on HuggingFace's tools."
 authors = ["Jonatas Grosman <jonatasgrosman@gmail.com>"]
 maintainers = ["Jonatas Grosman <jonatasgrosman@gmail.com>"]
