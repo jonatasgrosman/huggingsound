@@ -8,7 +8,7 @@ I hope this library could be helpful for someone else too :)
 
 # Requirements
 
-- Python 3.7+
+- Python 3.8+
 
 # Installation
 
