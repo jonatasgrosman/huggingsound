@@ -2,6 +2,7 @@ from __future__ import annotations
 import warnings
 import librosa
 import numpy as np
+import pandas as pd
 from typing import Iterator, Optional
 from datasets import Dataset
 from collections import Counter
@@ -69,13 +70,7 @@ def get_dataset_from_dict_list(data: list[dict]) -> Dataset:
         Dataset: dataset from dict list
     """
 
-    keys = data[0].keys()
-    transformed_data = {}
-    for key in keys:
-        for d in data:
-            transformed_data[key] = transformed_data.get(key, []) + [d[key]]
-
-    dataset = Dataset.from_dict(transformed_data)
+    dataset = Dataset.from_pandas(pd.DataFrame.from_dict(data))
 
     return dataset
 
