@@ -19,7 +19,7 @@ python = ">=3.8.0,<4"
 torch = ">=2.0.0, !=2.0.1"
 librosa = "^0.10.1"
 jiwer = "^3.0.2"
-transformers = "^4.32.0"
+transformers = ">=4.23.0,<=4.29.2"
 datasets = "^2.14.4"
 accelerate = "^0.22.0"
 
