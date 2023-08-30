@@ -1,6 +1,7 @@
 from __future__ import annotations
 import os
 import sys
+import shutil
 import torch
 import warnings
 import logging
@@ -267,12 +268,20 @@ class SpeechRecognitionModel():
         else:
             logger.info("Converting data format...")
             dataset = get_dataset_from_dict_list(data)
+            
+            if data_cache_dir is not None:
+                logger.info("Caching raw data...")
+                dataset.save_to_disk(f"{data_cache_dir}_raw")
+                dataset = load_from_disk(f"{data_cache_dir}_raw")
+
             logger.info("Preparing data input and labels...")
             dataset = self._prepare_dataset_for_finetuning(dataset, processor, text_normalizer, length_column_name, num_workers)
 
             if data_cache_dir is not None:
-                logger.info("Caching data...")
+                logger.info("Caching processed data...")
                 dataset.save_to_disk(data_cache_dir)
+                logger.info("Removing raw data cache...")
+                shutil.rmtree(f"{data_cache_dir}_raw")
 
         return dataset
 
