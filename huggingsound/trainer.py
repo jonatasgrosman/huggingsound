@@ -180,7 +180,10 @@ class TrainingArguments:
         The list of integrations to report the results and logs to. Supported platforms are "azure_ml",
         "comet_ml", "mlflow", "tensorboard" and "wandb". Use "all" to report to
         all integrations installed, "none" for no integrations.
-    
+
+    save_steps: Optional[int] = 500
+        Number of updates steps before two checkpoint saves.
+
     save_total_limit: Optional[int] = None
         Limit the total amount of checkpoints. Deletes the older checkpoints in the output_dir. Default is unlimited checkpoints
     
@@ -248,6 +251,7 @@ class TrainingArguments:
     num_train_epochs: float = field(default=3.0)
     max_steps: int = field(default=0)
     report_to: list[str] = field(default_factory=lambda: ["none"])
+    save_steps: int = field(default=500)
     save_total_limit: int = field(default=None)
     metric_for_best_model: str = field(default=None)
     _n_gpu: int = field(default=1)
